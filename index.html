@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" href="https://static.wikia.nocookie.net/nicos-nextbots-fanmade/images/a/ab/Im_spongebooby.png" />
   <title>Otto's Site</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   <style>
@@ -294,13 +295,28 @@
     function toggleTheme() {
       const body = document.body;
       const isLight = body.getAttribute("data-theme") === "light";
-      body.setAttribute("data-theme", isLight ? "dark" : "light");
+      const newTheme = isLight ? "dark" : "light";
+      body.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
     }
 
     function updateStyle() {
       const style = document.getElementById("styleSelect").value;
       document.body.setAttribute("data-style", style);
+      localStorage.setItem("style", style);
     }
+
+    // Load saved theme/style
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      const savedStyle = localStorage.getItem("style") || "purple";
+
+      document.body.setAttribute("data-theme", savedTheme);
+      document.body.setAttribute("data-style", savedStyle);
+
+      document.getElementById("modeSwitch").checked = savedTheme === "light";
+      document.getElementById("styleSelect").value = savedStyle;
+    });
   </script>
 </body>
 </html>
