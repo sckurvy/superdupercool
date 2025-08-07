@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Otto's Site</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
@@ -37,7 +37,7 @@
       padding: 40px 30px;
       width: 95%;
       max-width: 600px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
       text-align: center;
       transition: background 0.3s;
     }
@@ -46,7 +46,9 @@
       background: #fff;
     }
 
-    h1, .footer, a {
+    h1,
+    .footer,
+    a {
       transition: color 0.3s;
     }
 
@@ -148,16 +150,9 @@
       cursor: pointer;
     }
 
-    .toggle-switch input[type="checkbox"] {
+    .toggle-switch input[type='checkbox'] {
       width: 20px;
       height: 20px;
-    }
-
-    /* Purple volume slider */
-    #volumeSlider {
-      accent-color: #8A2BE2;
-      cursor: pointer;
-      width: 100%;
     }
   </style>
 </head>
@@ -179,7 +174,6 @@
       <h1>Settings</h1>
       <div class="settings-tabs">
         <div class="tab active" onclick="switchTab('appearance')">Appearance</div>
-        <div class="tab" onclick="switchTab('audio')">Audio</div>
       </div>
       <div class="tab-content" id="appearanceTab">
         <div class="toggle-switch">
@@ -189,38 +183,17 @@
           </label>
         </div>
       </div>
-      <div class="tab-content" id="audioTab" style="display: none;">
-        <!-- Visible audio player -->
-        <audio id="audioPlayer" src="https://drive.google.com/uc?export=download&id=1KTCdnbUltyMqxaxmmRKSYQ9Pmv8-54VF" controls></audio>
-
-        <!-- Volume slider with percentage -->
-        <div style="margin-top: 15px; display: flex; align-items: center; gap: 10px;">
-          <input
-            type="range"
-            id="volumeSlider"
-            min="0"
-            max="100"
-            value="50"
-          />
-          <span id="volumePercent" style="min-width: 35px; font-weight: bold; color: inherit;">50%</span>
-        </div>
-      </div>
     </div>
   </div>
-
-  <!-- Alternative background audio (uncomment to use) -->
-  <!--
-  <audio id="backgroundAudio" src="https://drive.google.com/uc?export=download&id=1KTCdnbUltyMqxaxmmRKSYQ9Pmv8-54VF" autoplay loop></audio>
-  -->
 
   <script>
     const websites = [
       { name: "ORIGINAL SITE", url: "https://superduperog.netlify.app/" },
       { name: "Minecraft(Working as of 11:24 A.M)", url: "https://x.mess.eu.org/" },
       { name: "1.12 Minecraft", url: "https://freedombrowser.org/static/mc/1.12.2/wasm/" },
-      { name: "Proxy", url: "https://school.pepikutan.net" },     
+      { name: "Proxy", url: "https://school.pepikutan.net" },
       { name: "Minecraft Version Client", url: "https://tuff.speedslicer.dev/" },
-      { name: "Movies", url: "https://flixrave.me/"  },  
+      { name: "Movies", url: "https://flixrave.me/" },
       { name: "Shell Shockers Official", url: "https://superdupershell.netlify.app/" },
       { name: "Slope", url: "https://mathadventure1.github.io/slope/slope/index.html" },
       { name: "Infinite Craft", url: "https://infinite-craft.com/infinite-craft/" },
@@ -232,7 +205,7 @@
     ];
 
     const launcherGrid = document.getElementById("launcherGrid");
-    websites.forEach(site => {
+    websites.forEach((site) => {
       const btn = document.createElement("button");
       btn.className = "launch-btn";
       btn.textContent = site.name;
@@ -243,12 +216,12 @@
     function createWindow(url) {
       const win = window.open();
       win.document.title = "Google Classroom";
-      const link = win.document.createElement('link');
-      link.rel = 'icon';
-      link.href = 'https://img.icons8.com/ios-filled/50/000000/google-classroom.png';
+      const link = win.document.createElement("link");
+      link.rel = "icon";
+      link.href = "https://img.icons8.com/ios-filled/50/000000/google-classroom.png";
       win.document.head.appendChild(link);
 
-      const iframe = document.createElement('iframe');
+      const iframe = document.createElement("iframe");
       iframe.src = url;
       iframe.style.width = "100%";
       iframe.style.height = "100%";
@@ -270,11 +243,11 @@
     }
 
     function switchTab(tabName) {
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+      document.querySelectorAll(".tab").forEach((tab) => tab.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach((tab) => (tab.style.display = "none"));
 
-      document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
-      document.getElementById(tabName + 'Tab').style.display = 'block';
+      document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add("active");
+      document.getElementById(tabName + "Tab").style.display = "block";
     }
 
     function toggleTheme() {
@@ -282,23 +255,6 @@
       const isLight = body.getAttribute("data-theme") === "light";
       body.setAttribute("data-theme", isLight ? "dark" : "light");
     }
-
-    // Volume slider logic
-    const audioPlayer = document.getElementById('audioPlayer');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const volumePercent = document.getElementById('volumePercent');
-
-    audioPlayer.volume = 0.5; // start at 50%
-    volumePercent.textContent = "50%";
-
-    volumeSlider.addEventListener('input', () => {
-      const vol = volumeSlider.value;
-      audioPlayer.volume = vol / 100;
-      volumePercent.textContent = vol + "%";
-    });
-
-    // If you want to use background audio instead, uncomment the audio element above
-    // and replace references to audioPlayer with backgroundAudio here.
   </script>
 </body>
 </html>
