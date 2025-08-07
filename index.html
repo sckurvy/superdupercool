@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Otto's Site</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Orbitron', sans-serif;
+      color: white;
     }
 
     body {
       margin: 0;
       padding: 0;
-      background: #f1f4f9;
+      background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -20,20 +23,18 @@
     }
 
     .container {
-      background: white;
-      border: 2px solid #90cdf4;
+      background: #111;
+      border: 2px solid #8A2BE2;
       border-radius: 16px;
       padding: 40px 30px;
       width: 95%;
       max-width: 600px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.1);   
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
       text-align: center;
     }
 
-    h1 {
-      margin-bottom: 20px;
-      color: #3182ce;
-      font-size: 28px;
+    h1, .footer, a {
+      color: white;
     }
 
     .launcher-grid {
@@ -45,7 +46,7 @@
 
     .launch-btn {
       padding: 12px 10px;
-      background: #90cdf4;
+      background: #8A2BE2;
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -55,13 +56,16 @@
     }
 
     .launch-btn:hover {
-      background: #63b3ed;
+      background: #7a1ed1;
     }
 
     .footer {
       margin-top: 25px;
-      color: #666;
       font-size: 0.85em;
+    }
+
+    a {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -83,7 +87,7 @@
       { name: "1.12 Minecraft", url: "https://freedombrowser.org/static/mc/1.12.2/wasm/" },
       { name: "Proxy", url: "https://school.pepikutan.net" },     
       { name: "Minecraft Version Client", url: "https://tuff.speedslicer.dev/" },
-      { name: "Movies", url: "https://flixrave.me//"  },  
+      { name: "Movies", url: "https://flixrave.me/"  },  
       { name: "Shell Shockers Official", url: "https://superdupershell.netlify.app/" },
       { name: "Slope", url: "https://mathadventure1.github.io/slope/slope/index.html" },
       { name: "Infinite Craft", url: "https://infinite-craft.com/infinite-craft/" },
@@ -91,16 +95,15 @@
       { name: "Run 3", url: "https://lekug.github.io/tn6pS9dCf37xAhkJv/" },
       { name: "Cookie Clicker", url: "https://cookieclicker.ee/" },
       { name: "Time Shooter SWAT", url: "https://games.crazygames.com/en_US/time-shooter-3-swat/index.html" },
-      { name: "Interstellar2", url: "https://carcher.com.justlearning.net/" } ];
- 
-      
+      { name: "Interstellar2", url: "https://carcher.com.justlearning.net/" }
+    ];
 
     function createWindow(url) {
       const win = window.open();
       win.document.title = "Google Classroom";
       const link = win.document.createElement('link');
       link.rel = 'icon';
-      link.href = 'https://img.icons8.com/?size=100&id=31057&format=png&color=000000';
+      link.href = 'https://img.icons8.com/ios-filled/50/000000/google-classroom.png';
       win.document.head.appendChild(link);
 
       const iframe = document.createElement('iframe');
@@ -125,6 +128,3 @@
   </script>
 </body>
 </html>
-
-
-<script defer data-domain="html.cafe" src="https://milkymouse.com/js/script.js"></script>
