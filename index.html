@@ -19,22 +19,18 @@
       --accent-color-dark: #ff7aeb;
       --accent-color-light: #ff7aeb;
     }
-
     body[data-style="green"] {
       --accent-color-dark: #388e3c;
       --accent-color-light: #66bb6a;
     }
-
     body[data-style="grey"] {
       --accent-color-dark: #a39da2;
       --accent-color-light: #a39da2;
     }
-
     body[data-style="yellow"] {
       --accent-color-dark: #ffff00;
       --accent-color-light: #ffff00;
     }
-
     body[data-style="blue"] {
       --accent-color-dark: #1976d2;
       --accent-color-light: #64b5f6;
@@ -47,12 +43,12 @@
 
     body {
       margin: 0;
-      padding: 0;
+      padding: 30px 0;
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
       transition: background 0.3s, color 0.3s;
+      min-height: 100vh;
+      overflow-y: auto;
     }
 
     body[data-theme="dark"] {
@@ -81,9 +77,7 @@
       background: #fff;
     }
 
-    h1,
-    .footer,
-    a {
+    h1, .footer, a {
       transition: color 0.3s;
     }
 
@@ -198,20 +192,26 @@
       border: 1px solid #ccc;
       font-size: 14px;
     }
+
+    input[type="range"] {
+      width: 100%;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body data-theme="dark" data-style="purple">
-  <audio autoplay loop>
-  <source src="assets/audio/wenotlikeyou.mp3" type="audio/mpeg">
-</audio>
+  <audio id="backgroundMusic" loop>
+    <source src="assets/audio/wenotlikeyou.mp3" type="audio/mpeg">
+  </audio>
+
   <button class="settings-toggle" onclick="toggleSettings()" id="settingsButton">⚙ Settings</button>
 
   <div class="container">
     <div id="mainContent">
       <h1>Otto's Site</h1>
-     <h1>Suggestions:</h1> 
+      <h1>Suggestions:</h1>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOHgllemZvNHiWS6_LZdOZUL10CVw6OCpTJArUvCAcyEyXtA/viewform?usp=header">Link</a>
-     <h1> </h1>
+      <h1> </h1>
       <a href="https://docs.google.com/document/d/1y36LX33MmFMzsjjKCqYTJ5qk2FkEHCtm6cdkkH1r9Y8/edit?usp=sharing">SITES STATUS</a>
       <div class="launcher-grid" id="launcherGrid"></div>
       <div class="footer">Boring.</div>
@@ -221,7 +221,9 @@
       <h1>Settings</h1>
       <div class="settings-tabs">
         <div class="tab active" onclick="switchTab('appearance')">Appearance</div>
+        <div class="tab" onclick="switchTab('audio')">Audio</div>
       </div>
+
       <div class="tab-content" id="appearanceTab">
         <div class="toggle-switch">
           <label>
@@ -243,6 +245,11 @@
             </select>
           </label>
         </div>
+      </div>
+
+      <div class="tab-content" id="audioTab" style="display: none;">
+        <label for="volumeSlider">Volume: <span id="volumePercent">100%</span></label><br>
+        <input type="range" id="volumeSlider" min="0" max="100" value="100" />
       </div>
     </div>
   </div>
@@ -320,7 +327,6 @@
     function switchTab(tabName) {
       document.querySelectorAll(".tab").forEach((tab) => tab.classList.remove("active"));
       document.querySelectorAll(".tab-content").forEach((tab) => (tab.style.display = "none"));
-
       document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add("active");
       document.getElementById(tabName + "Tab").style.display = "block";
     }
@@ -339,16 +345,32 @@
       localStorage.setItem("style", style);
     }
 
-    // Load saved theme/style
     window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("backgroundMusic");
+
+      // Autoplay on first click
+      const startMusic = () => {
+        audio.play().catch(e => console.log("Audio play blocked:", e));
+        document.removeEventListener("click", startMusic);
+      };
+      document.addEventListener("click", startMusic);
+
+      // Load theme/style
       const savedTheme = localStorage.getItem("theme") || "dark";
       const savedStyle = localStorage.getItem("style") || "purple";
-
       document.body.setAttribute("data-theme", savedTheme);
       document.body.setAttribute("data-style", savedStyle);
-
       document.getElementById("modeSwitch").checked = savedTheme === "light";
       document.getElementById("styleSelect").value = savedStyle;
+
+      // Volume slider
+      const volumeSlider = document.getElementById("volumeSlider");
+      const volumePercent = document.getElementById("volumePercent");
+      volumeSlider.addEventListener("input", () => {
+        const vol = volumeSlider.value / 100;
+        audio.volume = vol;
+        volumePercent.textContent = volumeSlider.value + "%";
+      });
     });
   </script>
 </body>
