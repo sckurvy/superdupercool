@@ -326,27 +326,7 @@
     }
     
     
-    if (window.location.href !== "about:blank") {
-  const win = window.open("about:blank", "_self"); // replace current tab
-  const doc = win.document;
-
-  // give it a title + favicon
-  doc.title = document.title;
-  const link = doc.createElement("link");
-  link.rel = "icon";
-  link.href = "https://static.wikia.nocookie.net/nicos-nextbots-fanmade/images/a/ab/Im_spongebooby.png";
-  doc.head.appendChild(link);
-
-  // make iframe with your site
-  const iframe = doc.createElement("iframe");
-  iframe.src = window.location.href;
-  iframe.style.width = "100%";
-  iframe.style.height = "100%";
-  iframe.style.border = "none";
-  doc.body.style.margin = "0";
-  doc.body.style.padding = "0";
-  doc.body.appendChild(iframe);
-}
+    
 
     function toggleSettings() {
       const main = document.getElementById("mainContent");
