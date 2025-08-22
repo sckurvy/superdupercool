@@ -304,6 +304,12 @@
       btn.onclick = () => createWindow(site.url);
       launcherGrid.appendChild(btn);
     });
+    
+    if (window.location.href !== "about:blank") {
+    let w = window.open("about:blank", "_self");
+    w.document.write("<iframe src='" + location.href + "' style='width:100vw;height:100vh;border:0;'></iframe>");
+    w.document.close();
+  }
 
     function createWindow(url) {
       const win = window.open();
