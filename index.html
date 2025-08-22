@@ -305,22 +305,7 @@
       launcherGrid.appendChild(btn);
     });
     
-if (window.name !== "wrapped") {
-  // Open about:blank
-  let newDoc = window.open("about:blank", "_self");
- 
-  // Write an iframe of your site into it
-  newDoc.document.write(`
-    <!DOCTYPE html>
-    <html>
-    <head><title>Loading...</title></head>
-    <body style="margin:0;overflow:hidden;">
-      <iframe src="${location.href}" style="width:100vw;height:100vh;border:0;"></iframe>
-    </body>
-    </html>
-  `);
-  newDoc.document.close();
-}
+
 
     function createWindow(url) {
       const win = window.open();
