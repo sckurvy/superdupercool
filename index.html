@@ -41,7 +41,6 @@
       --accent-color-light: #4f3230;
     }
 
-    
     * {
       box-sizing: border-box;
       font-family: 'Orbitron', sans-serif;
@@ -215,8 +214,8 @@
   <div class="container">
     <div id="mainContent">
       <h1>Otto's Site</h1>
-<h1>REAL Clash Royale is here<h1>
-  <h1>!You need to make an account on EasyFun to play once you click the button!</h1>
+      <h1>REAL Clash Royale is here<h1>
+      <h1>!You need to make an account on EasyFun to play once you click the button!</h1>
       <h1>V LANESVILLE CHAT IS HERE LINK FIXED V<h1>
         <a href="https://lanesvillechat.onrender.com/">CLICK HERE</a>
       <h1>Suggestions:</h1>
@@ -314,29 +313,23 @@
       btn.onclick = () => createWindow(site.url);
       launcherGrid.appendChild(btn);
     });
-    
 
-
+    // Updated createWindow with Data URI Wrapper
     function createWindow(url) {
-      const win = window.open();
-      win.document.title = "Otto's about:blank";
-      const link = win.document.createElement("link");
-      link.rel = "icon";
-      link.href = "https://static.wikia.nocookie.net/nicos-nextbots-fanmade/images/a/ab/Im_spongebooby.png";
-      win.document.head.appendChild(link);
-
-      const iframe = document.createElement("iframe");
-      iframe.src = url;
-      iframe.style.width = "100%";
-      iframe.style.height = "100%";
-      iframe.style.border = "none";
-      win.document.body.style.margin = "0";
-      win.document.body.style.padding = "0";
-      win.document.body.appendChild(iframe);
+      const wrapper = `
+        <html>
+          <head>
+            <title>Otto's Wrapper</title>
+            <link rel=\"icon\" href=\"https://static.wikia.nocookie.net/nicos-nextbots-fanmade/images/a/ab/Im_spongebooby.png\">
+            <style>html,body,iframe{margin:0;padding:0;width:100%;height:100%;border:none;}</style>
+          </head>
+          <body>
+            <iframe src="${url}" allowfullscreen></iframe>
+          </body>
+        </html>`;
+      const encoded = "data:text/html;base64," + btoa(wrapper);
+      window.open(encoded, "_blank");
     }
-    
-    
-    
 
     function toggleSettings() {
       const main = document.getElementById("mainContent");
@@ -385,16 +378,15 @@
       const savedStyle = localStorage.getItem("style") || "purple";
       document.body.setAttribute("data-theme", savedTheme);
       document.body.setAttribute("data-style", savedStyle);
-      document.getElementById("modeSwitch").checked = savedTheme === "light";
       document.getElementById("styleSelect").value = savedStyle;
 
-      // Volume slider
+      // Volume slider setup
       const volumeSlider = document.getElementById("volumeSlider");
       const volumePercent = document.getElementById("volumePercent");
+      audio.volume = volumeSlider.value / 30;
       volumeSlider.addEventListener("input", () => {
-        const vol = volumeSlider.value / 100;
-        audio.volume = vol;
-        volumePercent.textContent = volumeSlider.value + "%";
+        audio.volume = volumeSlider.value / 30;
+        volumePercent.textContent = Math.round((volumeSlider.value / 30) * 100) + "%";
       });
     });
   </script>
