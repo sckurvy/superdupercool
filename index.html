@@ -48,6 +48,11 @@
       --accent-color-light: #ba68c8;
     }
      body[data-style="Nettspend"] {
+      --accent-color-dark: #594031;
+      --accent-color-light: #594031;
+    }
+
+    body[data-style="sayso"] {
       --accent-color-dark: #20303e;
       --accent-color-light: #6f8a94;
     }
@@ -92,6 +97,11 @@
       color: white;
     }
 
+     body[data-theme="sayso"] {
+      background: url('assets/sayso.jpg') center/cover no-repeat fixed;
+      color: white;
+    }
+
     .container {
       background: #111;
       border: 2px solid var(--accent-color-dark);
@@ -126,6 +136,12 @@
       border: 2px solid var(--accent-color-dark);
     }
 
+    body[data-theme="sayso"] .container {
+      background: rgba(89, 64, 49, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--accent-color-dark);
+    }
+
     h1, .footer, a {
       transition: color 0.3s;
     }
@@ -147,6 +163,13 @@
     body[data-theme="Nettspend"] h1,
     body[data-theme="Nettspend"] .footer,
     body[data-theme="Nettspend"] a {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+     body[data-theme="sayso"] h1,
+    body[data-theme="sayso"] .footer,
+    body[data-theme="sayso"] a {
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
@@ -205,6 +228,17 @@
       transform: translateY(-2px);
     }
 
+
+     body[data-theme="sayso"] .launch-btn {
+      background: var(--accent-color-dark);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    body[data-theme="sayso"] .launch-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
     .footer {
       margin-top: 25px;
       font-size: 0.85em;
@@ -237,6 +271,11 @@
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
      body[data-theme="Nettspend"] .settings-toggle {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+     body[data-theme="sayso"] .settings-toggle {
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
@@ -304,6 +343,17 @@
       background: var(--accent-color-dark);
     }
 
+
+     body[data-theme="sayso"] .tab {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+    body[data-theme="sayso"] .tab.active {
+      background: var(--accent-color-dark);
+    }
+
     .tab-content {
       border: 1px solid var(--accent-color-dark);
       border-radius: 8px;
@@ -330,6 +380,12 @@
     }
 
      body[data-theme="Nettspend"] .tab-content {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+     body[data-theme="sayso"] .tab-content {
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(5px);
       color: white;
@@ -412,6 +468,7 @@
               <option value="prettifun">PrettiFun</option>
               <option value="uzi">Uzi</option>
               <option value="Nettspend">Nettspend</option>
+              <option value="sayso">Che</option>
             </select>
           </label>
         </div>
@@ -518,7 +575,7 @@ function createWindow(url) {
       const currentStyle = body.getAttribute("data-style");
       
       // Don't allow theme switching if image-based style is selected
-      if (currentStyle === "prettifun" || currentStyle === "uzi" || currentStyle === "Nettspend") {
+      if (currentStyle === "prettifun" || currentStyle === "uzi" || currentStyle === "Nettspend" || currentStyle === "sayso") {
         return;
       }
       
@@ -548,14 +605,22 @@ function createWindow(url) {
 } else if (style === "Nettspend") {
   document.body.setAttribute("data-theme", "Nettspend");
   localStorage.setItem("theme", "Nettspend");
+} else if (style === "sayso") {
+  document.body.setAttribute("data-theme", "sayso");
+  localStorage.setItem("theme", "sayso");
 } else {
-  // Keep current theme (light/dark) for regular styles
   const currentTheme = localStorage.getItem("theme");
-  if (currentTheme === "prettifun" || currentTheme === "uzi" || currentTheme === "Nettspend") {
+  if (
+    currentTheme === "prettifun" ||
+    currentTheme === "uzi" ||
+    currentTheme === "Nettspend" ||
+    currentTheme === "sayso"
+  ) {
     document.body.setAttribute("data-theme", "dark");
     localStorage.setItem("theme", "dark");
   }
 }
+
 
       
       localStorage.setItem("style", style);
