@@ -39,9 +39,13 @@
       --accent-color-dark: #4f3230;
       --accent-color-light: #4f3230;
     }
-    body[data-style="image"] {
+    body[data-style="prettifun"] {
       --accent-color-dark: #ff69b4;
       --accent-color-light: #ffb6c1;
+    }
+    body[data-style="uzi"] {
+      --accent-color-dark: #9c27b0;
+      --accent-color-light: #ba68c8;
     }
 
     * {
@@ -69,8 +73,13 @@
       color: var(--accent-color-light);
     }
 
-    body[data-theme="image"] {
+    body[data-theme="prettifun"] {
       background: url('assets/pretti.jpg') center/cover no-repeat fixed;
+      color: white;
+    }
+
+    body[data-theme="uzi"] {
+      background: url('assets/Uzi.jpg') center/cover no-repeat fixed;
       color: white;
     }
 
@@ -90,8 +99,14 @@
       background: #fff;
     }
 
-    body[data-theme="image"] .container {
+    body[data-theme="prettifun"] .container {
       background: rgba(255, 182, 193, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--accent-color-dark);
+    }
+
+    body[data-theme="uzi"] .container {
+      background: rgba(156, 39, 176, 0.15);
       backdrop-filter: blur(10px);
       border: 2px solid var(--accent-color-dark);
     }
@@ -100,9 +115,16 @@
       transition: color 0.3s;
     }
 
-    body[data-theme="image"] h1,
-    body[data-theme="image"] .footer,
-    body[data-theme="image"] a {
+    body[data-theme="prettifun"] h1,
+    body[data-theme="prettifun"] .footer,
+    body[data-theme="prettifun"] a {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    body[data-theme="uzi"] h1,
+    body[data-theme="uzi"] .footer,
+    body[data-theme="uzi"] a {
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
@@ -129,12 +151,22 @@
       filter: brightness(0.9);
     }
 
-    body[data-theme="image"] .launch-btn {
+    body[data-theme="prettifun"] .launch-btn {
       background: var(--accent-color-dark);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
-    body[data-theme="image"] .launch-btn:hover {
+    body[data-theme="prettifun"] .launch-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+    body[data-theme="uzi"] .launch-btn {
+      background: var(--accent-color-dark);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    body[data-theme="uzi"] .launch-btn:hover {
       filter: brightness(1.1);
       transform: translateY(-2px);
     }
@@ -161,7 +193,12 @@
       transition: color 0.3s;
     }
 
-    body[data-theme="image"] .settings-toggle {
+    body[data-theme="prettifun"] .settings-toggle {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    body[data-theme="uzi"] .settings-toggle {
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
@@ -198,13 +235,23 @@
       background: #eee;
     }
 
-    body[data-theme="image"] .tab {
+    body[data-theme="prettifun"] .tab {
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(5px);
       color: white;
     }
 
-    body[data-theme="image"] .tab.active {
+    body[data-theme="prettifun"] .tab.active {
+      background: var(--accent-color-dark);
+    }
+
+    body[data-theme="uzi"] .tab {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+    body[data-theme="uzi"] .tab.active {
       background: var(--accent-color-dark);
     }
 
@@ -221,7 +268,13 @@
       color: var(--accent-color-light);
     }
 
-    body[data-theme="image"] .tab-content {
+    body[data-theme="prettifun"] .tab-content {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+    body[data-theme="uzi"] .tab-content {
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(5px);
       color: white;
@@ -291,12 +344,6 @@
         </div>
         <div class="toggle-switch" style="margin-top: 15px;">
           <label>
-            <input type="checkbox" id="imageThemeSwitch" onchange="toggleImageTheme()" />
-            Image Background Theme
-          </label>
-        </div>
-        <div class="toggle-switch" style="margin-top: 15px;">
-          <label>
             Style:
             <select id="styleSelect" onchange="updateStyle()">
               <option value="purple">Purple (Default)</option>
@@ -307,7 +354,8 @@
               <option value="grey">Grey</option>
               <option value="yellow">Yellow</option>
               <option value="poop">Poop</option>
-              <option value="image">Image Theme Pink</option>
+              <option value="prettifun">PrettiFun</option>
+              <option value="uzi">Uzi</option>
             </select>
           </label>
         </div>
@@ -411,30 +459,17 @@ function createWindow(url) {
 
     function toggleTheme() {
       const body = document.body;
+      const currentStyle = body.getAttribute("data-style");
+      
+      // Don't allow theme switching if image-based style is selected
+      if (currentStyle === "prettifun" || currentStyle === "uzi") {
+        return;
+      }
+      
       const isLight = body.getAttribute("data-theme") === "light";
       const newTheme = isLight ? "dark" : "light";
       body.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
-      
-      // Update image theme checkbox
-      updateImageThemeSwitch();
-    }
-
-    function toggleImageTheme() {
-      const body = document.body;
-      const isImage = body.getAttribute("data-theme") === "image";
-      const newTheme = isImage ? "dark" : "image";
-      body.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme);
-      
-      // Update light mode checkbox
-      updateLightModeSwitch();
-    }
-
-    function updateImageThemeSwitch() {
-      const imageSwitch = document.getElementById("imageThemeSwitch");
-      const currentTheme = document.body.getAttribute("data-theme");
-      imageSwitch.checked = currentTheme === "image";
     }
 
     function updateLightModeSwitch() {
@@ -446,7 +481,25 @@ function createWindow(url) {
     function updateStyle() {
       const style = document.getElementById("styleSelect").value;
       document.body.setAttribute("data-style", style);
+      
+      // If image-based style is selected, switch to corresponding theme
+      if (style === "prettifun") {
+        document.body.setAttribute("data-theme", "prettifun");
+        localStorage.setItem("theme", "prettifun");
+      } else if (style === "uzi") {
+        document.body.setAttribute("data-theme", "uzi");
+        localStorage.setItem("theme", "uzi");
+      } else {
+        // Keep current theme (light/dark) for regular styles
+        const currentTheme = localStorage.getItem("theme");
+        if (currentTheme === "prettifun" || currentTheme === "uzi") {
+          document.body.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+        }
+      }
+      
       localStorage.setItem("style", style);
+      updateLightModeSwitch();
     }
 
     window.addEventListener("DOMContentLoaded", () => {
@@ -468,7 +521,6 @@ function createWindow(url) {
       
       // Update checkboxes based on saved theme
       updateLightModeSwitch();
-      updateImageThemeSwitch();
 
       // Volume slider setup
       const volumeSlider = document.getElementById("volumeSlider");
