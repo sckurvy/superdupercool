@@ -47,6 +47,10 @@
       --accent-color-dark: #9c27b0;
       --accent-color-light: #ba68c8;
     }
+     body[data-style="Nettspend"] {
+      --accent-color-dark: #20303e;
+      --accent-color-light: #6f8a94;
+    }
 
     * {
       box-sizing: border-box;
@@ -83,6 +87,11 @@
       color: white;
     }
 
+     body[data-theme="Nettspend"] {
+      background: url('assets/Nettspend.jpg') center/cover no-repeat fixed;
+      color: white;
+    }
+
     .container {
       background: #111;
       border: 2px solid var(--accent-color-dark);
@@ -111,6 +120,12 @@
       border: 2px solid var(--accent-color-dark);
     }
 
+     body[data-theme="Nettspend"] .container {
+      background: rgba(111, 138, 148, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--accent-color-dark);
+    }
+
     h1, .footer, a {
       transition: color 0.3s;
     }
@@ -125,6 +140,13 @@
     body[data-theme="uzi"] h1,
     body[data-theme="uzi"] .footer,
     body[data-theme="uzi"] a {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    body[data-theme="Nettspend"] h1,
+    body[data-theme="Nettspend"] .footer,
+    body[data-theme="Nettspend"] a {
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
@@ -171,6 +193,18 @@
       transform: translateY(-2px);
     }
 
+
+
+    body[data-theme="Nettspend"] .launch-btn {
+      background: var(--accent-color-dark);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    body[data-theme="Nettspend"] .launch-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
     .footer {
       margin-top: 25px;
       font-size: 0.85em;
@@ -199,6 +233,10 @@
     }
 
     body[data-theme="uzi"] .settings-toggle {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+     body[data-theme="Nettspend"] .settings-toggle {
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
@@ -255,6 +293,17 @@
       background: var(--accent-color-dark);
     }
 
+
+     body[data-theme="Nettspend"] .tab {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+    body[data-theme="Nettspend"] .tab.active {
+      background: var(--accent-color-dark);
+    }
+
     .tab-content {
       border: 1px solid var(--accent-color-dark);
       border-radius: 8px;
@@ -275,6 +324,12 @@
     }
 
     body[data-theme="uzi"] .tab-content {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+     body[data-theme="Nettspend"] .tab-content {
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(5px);
       color: white;
@@ -356,6 +411,7 @@
               <option value="poop">Poop</option>
               <option value="prettifun">PrettiFun</option>
               <option value="uzi">Uzi</option>
+              <option value="Nettspend">Nettspend</option>
             </select>
           </label>
         </div>
@@ -462,7 +518,7 @@ function createWindow(url) {
       const currentStyle = body.getAttribute("data-style");
       
       // Don't allow theme switching if image-based style is selected
-      if (currentStyle === "prettifun" || currentStyle === "uzi") {
+      if (currentStyle === "prettifun" || currentStyle === "uzi" || currentStyle === "Nettspend") {
         return;
       }
       
@@ -483,20 +539,24 @@ function createWindow(url) {
       document.body.setAttribute("data-style", style);
       
       // If image-based style is selected, switch to corresponding theme
-      if (style === "prettifun") {
-        document.body.setAttribute("data-theme", "prettifun");
-        localStorage.setItem("theme", "prettifun");
-      } else if (style === "uzi") {
-        document.body.setAttribute("data-theme", "uzi");
-        localStorage.setItem("theme", "uzi");
-      } else {
-        // Keep current theme (light/dark) for regular styles
-        const currentTheme = localStorage.getItem("theme");
-        if (currentTheme === "prettifun" || currentTheme === "uzi") {
-          document.body.setAttribute("data-theme", "dark");
-          localStorage.setItem("theme", "dark");
-        }
-      }
+     if (style === "prettifun") {
+  document.body.setAttribute("data-theme", "prettifun");
+  localStorage.setItem("theme", "prettifun");
+} else if (style === "uzi") {
+  document.body.setAttribute("data-theme", "uzi");
+  localStorage.setItem("theme", "uzi");
+} else if (style === "Nettspend") {
+  document.body.setAttribute("data-theme", "Nettspend");
+  localStorage.setItem("theme", "Nettspend");
+} else {
+  // Keep current theme (light/dark) for regular styles
+  const currentTheme = localStorage.getItem("theme");
+  if (currentTheme === "prettifun" || currentTheme === "uzi" || currentTheme === "Nettspend") {
+    document.body.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
+  }
+}
+
       
       localStorage.setItem("style", style);
       updateLightModeSwitch();
