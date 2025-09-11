@@ -35,10 +35,13 @@
       --accent-color-dark: #1976d2;
       --accent-color-light: #64b5f6;
     }
-
     body[data-style="poop"] {
       --accent-color-dark: #4f3230;
       --accent-color-light: #4f3230;
+    }
+    body[data-style="image"] {
+      --accent-color-dark: #ff69b4;
+      --accent-color-light: #ffb6c1;
     }
 
     * {
@@ -66,6 +69,11 @@
       color: var(--accent-color-light);
     }
 
+    body[data-theme="image"] {
+      background: url('assets/pretti.jpg') center/cover no-repeat fixed;
+      color: white;
+    }
+
     .container {
       background: #111;
       border: 2px solid var(--accent-color-dark);
@@ -82,8 +90,21 @@
       background: #fff;
     }
 
+    body[data-theme="image"] .container {
+      background: rgba(255, 182, 193, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--accent-color-dark);
+    }
+
     h1, .footer, a {
       transition: color 0.3s;
+    }
+
+    body[data-theme="image"] h1,
+    body[data-theme="image"] .footer,
+    body[data-theme="image"] a {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .launcher-grid {
@@ -108,6 +129,16 @@
       filter: brightness(0.9);
     }
 
+    body[data-theme="image"] .launch-btn {
+      background: var(--accent-color-dark);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    body[data-theme="image"] .launch-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
     .footer {
       margin-top: 25px;
       font-size: 0.85em;
@@ -128,6 +159,11 @@
       font-size: 18px;
       cursor: pointer;
       transition: color 0.3s;
+    }
+
+    body[data-theme="image"] .settings-toggle {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .settings-panel {
@@ -162,6 +198,16 @@
       background: #eee;
     }
 
+    body[data-theme="image"] .tab {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+    body[data-theme="image"] .tab.active {
+      background: var(--accent-color-dark);
+    }
+
     .tab-content {
       border: 1px solid var(--accent-color-dark);
       border-radius: 8px;
@@ -173,6 +219,12 @@
     body[data-theme="light"] .tab-content {
       background: #f3f3f3;
       color: var(--accent-color-light);
+    }
+
+    body[data-theme="image"] .tab-content {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
     }
 
     .toggle-switch {
@@ -239,6 +291,12 @@
         </div>
         <div class="toggle-switch" style="margin-top: 15px;">
           <label>
+            <input type="checkbox" id="imageThemeSwitch" onchange="toggleImageTheme()" />
+            Image Background Theme
+          </label>
+        </div>
+        <div class="toggle-switch" style="margin-top: 15px;">
+          <label>
             Style:
             <select id="styleSelect" onchange="updateStyle()">
               <option value="purple">Purple (Default)</option>
@@ -249,6 +307,7 @@
               <option value="grey">Grey</option>
               <option value="yellow">Yellow</option>
               <option value="poop">Poop</option>
+              <option value="image">Image Theme Pink</option>
             </select>
           </label>
         </div>
@@ -356,6 +415,32 @@ function createWindow(url) {
       const newTheme = isLight ? "dark" : "light";
       body.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
+      
+      // Update image theme checkbox
+      updateImageThemeSwitch();
+    }
+
+    function toggleImageTheme() {
+      const body = document.body;
+      const isImage = body.getAttribute("data-theme") === "image";
+      const newTheme = isImage ? "dark" : "image";
+      body.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      
+      // Update light mode checkbox
+      updateLightModeSwitch();
+    }
+
+    function updateImageThemeSwitch() {
+      const imageSwitch = document.getElementById("imageThemeSwitch");
+      const currentTheme = document.body.getAttribute("data-theme");
+      imageSwitch.checked = currentTheme === "image";
+    }
+
+    function updateLightModeSwitch() {
+      const modeSwitch = document.getElementById("modeSwitch");
+      const currentTheme = document.body.getAttribute("data-theme");
+      modeSwitch.checked = currentTheme === "light";
     }
 
     function updateStyle() {
@@ -380,6 +465,10 @@ function createWindow(url) {
       document.body.setAttribute("data-theme", savedTheme);
       document.body.setAttribute("data-style", savedStyle);
       document.getElementById("styleSelect").value = savedStyle;
+      
+      // Update checkboxes based on saved theme
+      updateLightModeSwitch();
+      updateImageThemeSwitch();
 
       // Volume slider setup
       const volumeSlider = document.getElementById("volumeSlider");
