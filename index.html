@@ -41,6 +41,34 @@
       --accent-color-light: #4f3230;
     }
 
+        /* Prettifun Theme */
+    body[data-style="prettifun"] {
+      --accent-color-dark: #ff4da6;   /* hot pink */
+      --accent-color-light: #ffd6f5;  /* light pink */
+      background: url("https://e.snmc.io/i/600/w/78aa0229fc4812d017a9bf1a3c47b55a/12567428/prettifun-funhouse-Cover-Art.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    body[data-style="prettifun"] .container {
+      background: rgba(0, 0, 0, 0.6); /* transparent overlay for readability */
+      border: 2px solid var(--accent-color-dark);
+    }
+
+    body[data-style="prettifun"] .tab-content {
+      background: rgba(20, 20, 20, 0.8);
+    }
+
+    body[data-style="prettifun"] .launch-btn {
+      background: var(--accent-color-dark);
+      color: white;
+    }
+
+    body[data-style="prettifun"] .launch-btn:hover {
+      filter: brightness(1.2);
+    }
+
+
     * {
       box-sizing: border-box;
       font-family: 'Orbitron', sans-serif;
@@ -249,6 +277,8 @@
               <option value="grey">Grey</option>
               <option value="yellow">Yellow</option>
               <option value="poop">Poop</option>
+              <option value="prettifun">Prettifun</option>
+
             </select>
           </label>
         </div>
@@ -358,11 +388,19 @@ function createWindow(url) {
       localStorage.setItem("theme", newTheme);
     }
 
-    function updateStyle() {
-      const style = document.getElementById("styleSelect").value;
-      document.body.setAttribute("data-style", style);
-      localStorage.setItem("style", style);
-    }
+   function updateStyle() {
+  const style = document.getElementById("styleSelect").value;
+  document.body.setAttribute("data-style", style);
+  localStorage.setItem("style", style);
+
+  const audio = document.getElementById("backgroundMusic");
+
+  if (style === "prettifun") {
+    audio.src = "https://s3.filebin.net/filebin/0918c78d270551b721493997d1b6ecc922c216b6e3943f15c89942fab9b2987f/7d2fe0e524a9df29c08d4b809c881db71e8e8772c65c364a5baf089c9765def5?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=7pMj6hGeoKewqmMQILjm%2F20250911%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250911T150316Z&X-Amz-Expires=60&X-Amz-SignedHeaders=host&response-cache-control=max-age%3D60&response-content-disposition=inline%3B%20filename%3D%22prettifun%20-%20Ice%20Cream%20%28Official%20Video%29.mp3%22&response-content-type=audio%2Fmpeg&X-Amz-Signature=929b694c4de73b5d7efe4bbf8cf70843abdfb3be9b4229ff3b3eec3d0455f026"; // replace later
+    audio.play().catch(e => console.log("Autoplay blocked"));
+  }
+}
+
 
     window.addEventListener("DOMContentLoaded", () => {
       const audio = document.getElementById("backgroundMusic");
