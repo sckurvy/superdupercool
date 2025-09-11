@@ -41,22 +41,6 @@
       --accent-color-light: #4f3230;
     }
 
-/* Prettifun Theme */
-body[data-style="prettifun"] {
-  --accent-color-dark: #ff4da6;   /* hot pink */
-  --accent-color-light: #ffd6f5;  /* light pink */
-  background: url("https://e.snmc.io/i/600/w/78aa0229fc4812d017a9bf1a3c47b55a/12567428/prettifun-funhouse-Cover-Art.jpg") no-repeat center center fixed;
-  background-size: cover;
-  color: white;
-}
-
-body[data-style="prettifun"] .container {
-  background: rgba(0, 0, 0, 0.6); /* see-through instead of solid */
-  border: 2px solid var(--accent-color-dark);
-}
-
-
-
     * {
       box-sizing: border-box;
       font-family: 'Orbitron', sans-serif;
@@ -265,8 +249,6 @@ body[data-style="prettifun"] .container {
               <option value="grey">Grey</option>
               <option value="yellow">Yellow</option>
               <option value="poop">Poop</option>
-              <option value="prettifun">Prettifun</option>
-
             </select>
           </label>
         </div>
@@ -375,40 +357,39 @@ function createWindow(url) {
       body.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
     }
-function updateStyle() {
-  const style = document.getElementById("styleSelect").value;
-  document.body.setAttribute("data-style", style);
-  localStorage.setItem("style", style);
 
-  const audio = document.getElementById("backgroundMusic");
-
-  if (style === "prettifun") {
-    audio.src = "https://example.com/prettifun.mp3"; // replace with your MP3
-  } else {
-    audio.src = ""; // stop if not prettifun
-  }
-}
-
-// Run once after DOM loads to check saved style
-window.addEventListener("DOMContentLoaded", () => {
-  const audio = document.getElementById("backgroundMusic");
-
-  // User click unlocks audio playback
-  const startMusic = () => {
-    if (audio.src) {
-      audio.play().catch(e => console.log("Autoplay blocked:", e));
+    function updateStyle() {
+      const style = document.getElementById("styleSelect").value;
+      document.body.setAttribute("data-style", style);
+      localStorage.setItem("style", style);
     }
-    document.removeEventListener("click", startMusic);
-  };
-  document.addEventListener("click", startMusic);
 
-  // Apply saved style
-  const savedStyle = localStorage.getItem("style") || "purple";
-  document.body.setAttribute("data-style", savedStyle);
-  document.getElementById("styleSelect").value = savedStyle;
-  updateStyle(); // ensure song + bg image load right away
-});
+    window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("backgroundMusic");
 
+      // Autoplay on first click
+      const startMusic = () => {
+        audio.play().catch(e => console.log("Audio play blocked:", e));
+        document.removeEventListener("click", startMusic);
+      };
+      document.addEventListener("click", startMusic);
+
+      // Load theme/style
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      const savedStyle = localStorage.getItem("style") || "purple";
+      document.body.setAttribute("data-theme", savedTheme);
+      document.body.setAttribute("data-style", savedStyle);
+      document.getElementById("styleSelect").value = savedStyle;
+
+      // Volume slider setup
+      const volumeSlider = document.getElementById("volumeSlider");
+      const volumePercent = document.getElementById("volumePercent");
+      audio.volume = volumeSlider.value / 30;
+      volumeSlider.addEventListener("input", () => {
+        audio.volume = volumeSlider.value / 30;
+        volumePercent.textContent = Math.round((volumeSlider.value / 30) * 100) + "%";
+      });
+    });
   </script>
 </body>
 </html>
