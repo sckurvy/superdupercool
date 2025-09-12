@@ -57,6 +57,22 @@
       --accent-color-light: #594031;
     }
 
+    body[data-style="aero"] {
+      --accent-color-dark: #358ef0;
+      --accent-color-light: #358ef0;
+    }
+
+    body[data-style="halloween"] {
+      --accent-color-dark: #d66306;
+      --accent-color-light: #d66306;
+    }
+
+    body[data-style="christmas"] {
+      --accent-color-dark: #b62323;
+      --accent-color-light: #b62323;
+    }
+
+
     * {
       box-sizing: border-box;
       font-family: 'Orbitron', sans-serif;
@@ -102,6 +118,21 @@
       color: white;
     }
 
+    body[data-theme="aero"] {
+      background: url('assets/aero.png') center/cover no-repeat fixed;
+      color: white;
+    }
+
+    body[data-theme="halloween"] {
+      background: url('assets/halloween.png') center/cover no-repeat fixed;
+      color: white;
+    }
+
+    body[data-theme="christmas"] {
+      background: url('assets/christmas.png') center/cover no-repeat fixed;
+      color: white;
+    }
+
     .container {
       background: #111;
       border: 2px solid var(--accent-color-dark);
@@ -142,6 +173,28 @@
       border: 2px solid var(--accent-color-dark);
     }
 
+
+     body[data-theme="aero"] .container {
+      background: rgba(50, 205, 50, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--accent-color-dark);
+    }
+
+         body[data-theme="halloween"] .container {
+      background: rgba(255, 117, 24, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--accent-color-dark);
+    }
+
+    body[data-theme="christmas"] .container {
+      background: rgba(178, 34, 34, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--accent-color-dark);
+    }
+
+
+    
+
     h1, .footer, a {
       transition: color 0.3s;
     }
@@ -173,6 +226,30 @@
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
+
+    body[data-theme="aero"] h1,
+    body[data-theme="aero"] .footer,
+    body[data-theme="aero"] a {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    body[data-theme="halloween"] h1,
+    body[data-theme="halloween"] .footer,
+    body[data-theme="halloween"] a {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+
+    body[data-theme="christmas"] h1,
+    body[data-theme="christmas"] .footer,
+    body[data-theme="christmas"] a {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+
 
     .launcher-grid {
       display: grid;
@@ -239,6 +316,38 @@
       transform: translateY(-2px);
     }
 
+
+      body[data-theme="aero"] .launch-btn {
+      background: var(--accent-color-dark);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    body[data-theme="aero"] .launch-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+      body[data-theme="halloween"] .launch-btn {
+      background: var(--accent-color-dark);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    body[data-theme="halloween"] .launch-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
+
+      body[data-theme="christmas"] .launch-btn {
+      background: var(--accent-color-light);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    body[data-theme="christmas"] .launch-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+    }
+
     .footer {
       margin-top: 25px;
       font-size: 0.85em;
@@ -279,6 +388,23 @@
       color: white;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
+
+    body[data-theme="aero"] .settings-toggle {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    body[data-theme="halloween"] .settings-toggle {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    body[data-theme="christmas"] .settings-toggle {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+
 
     .settings-panel {
       display: none;
@@ -354,6 +480,37 @@
       background: var(--accent-color-dark);
     }
 
+     body[data-theme="aero"] .tab {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+    body[data-theme="aero"] .tab.active {
+      background: var(--accent-color-dark);
+    }
+
+
+     body[data-theme="halloween"] .tab {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+    body[data-theme="halloween"] .tab.active {
+      background: var(--accent-color-dark);
+    }
+
+     body[data-theme="christmas"] .tab {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+    body[data-theme="christmas"] .tab.active {
+      background: var(--accent-color-light);
+    }
+
     .tab-content {
       border: 1px solid var(--accent-color-dark);
       border-radius: 8px;
@@ -386,6 +543,25 @@
     }
 
      body[data-theme="sayso"] .tab-content {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+     body[data-theme="aero"] .tab-content {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+     body[data-theme="halloween"] .tab-content {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      color: white;
+    }
+
+
+     body[data-theme="christmas"] .tab-content {
       background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(5px);
       color: white;
@@ -469,6 +645,9 @@
               <option value="uzi">Uzi</option>
               <option value="Nettspend">Nettspend</option>
               <option value="sayso">Che</option>
+              <option value="aero">Frutiger Aero</option>
+              <option value="halloween">Halloween</option>
+              <option value="christmas">Christmas</option>
             </select>
           </label>
         </div>
@@ -576,7 +755,7 @@ function createWindow(url) {
       const currentStyle = body.getAttribute("data-style");
       
       // Don't allow theme switching if image-based style is selected
-      if (currentStyle === "prettifun" || currentStyle === "uzi" || currentStyle === "Nettspend" || currentStyle === "sayso") {
+      if (currentStyle === "prettifun" || currentStyle === "uzi" || currentStyle === "Nettspend" || currentStyle === "sayso" || currentStyle === "aero" || currentStyle === "halloween" || currentStyle === "christmas") {
         return;
       }
       
@@ -597,7 +776,7 @@ function createWindow(url) {
       document.body.setAttribute("data-style", style);
       
       // If image-based style is selected, switch to corresponding theme
-     if (style === "prettifun") {
+if (style === "prettifun") {
   document.body.setAttribute("data-theme", "prettifun");
   localStorage.setItem("theme", "prettifun");
 } else if (style === "uzi") {
@@ -609,18 +788,31 @@ function createWindow(url) {
 } else if (style === "sayso") {
   document.body.setAttribute("data-theme", "sayso");
   localStorage.setItem("theme", "sayso");
+} else if (style === "aero") {
+  document.body.setAttribute("data-theme", "aero");
+  localStorage.setItem("theme", "aero");
+} else if (style === "halloween") {
+  document.body.setAttribute("data-theme", "halloween");
+  localStorage.setItem("theme", "halloween");
+} else if (style === "christmas") {
+  document.body.setAttribute("data-theme", "christmas");
+  localStorage.setItem("theme", "christmas");
 } else {
   const currentTheme = localStorage.getItem("theme");
   if (
     currentTheme === "prettifun" ||
     currentTheme === "uzi" ||
     currentTheme === "Nettspend" ||
-    currentTheme === "sayso"
+    currentTheme === "sayso" ||
+    currentTheme === "aero" ||
+    currentTheme === "halloween" ||
+    currentTheme === "christmas"
   ) {
     document.body.setAttribute("data-theme", "dark");
     localStorage.setItem("theme", "dark");
   }
 }
+
 
 
       
