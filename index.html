@@ -608,8 +608,10 @@
       <h1>Otto's Site</h1>
      <h1>WE'RE BACK</h1>
       <h1>______________</h1>
-      <h1>Update Log v2.0.1:</h1>
-      <h1>Added "Import"/"Export" so you can transfer save data site to site</h1>
+      <h1>Update Log v2.0.0:</h1>
+      <h1>Added more themes in "Settings"</h1>
+      <h1>Fixed Cookie Clicker</h1>
+      <h1>Added Capybara Clicker</h1>
       <h1>______________</h1>
       <h1>Suggestions:</h1>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOHgllemZvNHiWS6_LZdOZUL10CVw6OCpTJArUvCAcyEyXtA/viewform?usp=header">Link</a>
@@ -620,12 +622,10 @@
 
     <div class="settings-panel" id="settingsPanel">
       <h1>Settings</h1>
-     <div class="settings-tabs">
-  <div class="tab active" onclick="switchTab('appearance')">Appearance</div>
-  <div class="tab" onclick="switchTab('audio')">Audio</div>
-  <div class="tab" onclick="switchTab('save')">Save</div>
-    </div>
-
+      <div class="settings-tabs">
+        <div class="tab active" onclick="switchTab('appearance')">Appearance</div>
+        <div class="tab" onclick="switchTab('audio')">Audio</div>
+      </div>
 
       <div class="tab-content" id="appearanceTab">
         <div class="toggle-switch">
@@ -664,13 +664,6 @@
       </div>
     </div>
   </div>
-
-  <div class="tab-content" id="saveTab" style="display: none; text-align:center;">
-  <button class="launch-btn" onclick="exportData()">Export Data</button>
-  <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)" />
-  <button class="launch-btn" onclick="document.getElementById('importFile').click()">Import Data</button>
-</div>
-
 
   <script>
     const websites = [
@@ -862,52 +855,6 @@ if (style === "prettifun") {
         volumePercent.textContent = Math.round((volumeSlider.value / 30) * 100) + "%";
       });
     });
-
-
-function exportData() {
-  const data = {};
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    data[key] = localStorage.getItem(key);
-  }
-
-  const json = JSON.stringify(data, null, 2);
-  const now = new Date();
-  const timestamp = now.toISOString().replace(/[:]/g, "-").split(".")[0];
-  const hostname = window.location.hostname.replace(/\./g, "_");
-  const filename = `export_${timestamp}_${hostname}.json`;
-
-  const blob = new Blob([json], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-function importData(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    try {
-      const data = JSON.parse(e.target.result);
-      localStorage.clear();
-      for (const key in data) {
-        localStorage.setItem(key, data[key]);
-      }
-      location.reload();
-    } catch (err) {
-      alert("Invalid file format.");
-    }
-  };
-  reader.readAsText(file);
-}
-
-
-    
   </script>
 </body>
 </html>
