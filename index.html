@@ -909,10 +909,22 @@ function saveName(){
   const n = document.getElementById('nameInput').value.trim();
   if(!n) return;
   localStorage.setItem('username', n);
+  fetch("/log", {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({ name: n })
+});
   name = n;
   checkBan();
   setup();
 }
+
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({ name: n })
+});
+
+    
 function setup(){
   if(!name){
     nameOverlay.style.display='flex';
