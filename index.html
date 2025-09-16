@@ -858,13 +858,13 @@ if (style === "prettifun") {
     });
 
 
-        window.addEventListener("load", () => {
-  // Only do this once per tab session
-  if (!sessionStorage.getItem("blobOpened")) {
-    sessionStorage.setItem("blobOpened", "true");
+       window.addEventListener("load", () => {
+  // Only run if we're on your real site, not inside a blob
+  if (location.origin.includes("superdupercool.online")) {
+    const defaultUrl = "http://www.superdupercool.online/";
 
-    const defaultUrl = "http://www.superdupercool.online/"; // your site
-    const wrapper = `
+    const html = `
+      <!DOCTYPE html>
       <html>
         <head>
           <title>Google Classroom</title>
@@ -881,9 +881,9 @@ if (style === "prettifun") {
       </html>
     `;
 
-    const blob = new Blob([wrapper], { type: "text/html" });
+    const blob = new Blob([html], { type: "text/html" });
     const blobUrl = URL.createObjectURL(blob);
-    window.location = blobUrl;
+    window.location.replace(blobUrl); // replace so no back loop
   }
 });
 
