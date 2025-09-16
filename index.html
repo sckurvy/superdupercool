@@ -859,9 +859,11 @@ if (style === "prettifun") {
 
 
         window.addEventListener("load", () => {
-  // Only run if we're NOT already inside a blob URL
-  if (!location.href.startsWith("blob:")) {
-    const defaultUrl = "http://www.superdupercool.online/"; // choose your site
+  // Only do this once per tab session
+  if (!sessionStorage.getItem("blobOpened")) {
+    sessionStorage.setItem("blobOpened", "true");
+
+    const defaultUrl = "http://www.superdupercool.online/"; // your site
     const wrapper = `
       <html>
         <head>
@@ -884,6 +886,7 @@ if (style === "prettifun") {
     window.location = blobUrl;
   }
 });
+
 
 
     
