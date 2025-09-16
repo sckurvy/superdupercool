@@ -857,29 +857,34 @@ if (style === "prettifun") {
       });
     });
 
-window.addEventListener("load", () => {
-  const defaultUrl = "http://www.superdupercool.online/"; // pick your site
-  const wrapper = `
-    <html>
-      <head>
-        <title>Google Classroom</title>
-        <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Google_Classroom_Logo.svg/1200px-Google_Classroom_Logo.svg.png">
-        <style>
-          html,body,iframe {
-            margin:0; padding:0; width:100%; height:100%; border:none;
-          }
-        </style>
-      </head>
-      <body>
-        <iframe src="${defaultUrl}" allowfullscreen></iframe>
-      </body>
-    </html>
-  `;
 
-  const blob = new Blob([wrapper], { type: "text/html" });
-  const blobUrl = URL.createObjectURL(blob);
-  window.location = blobUrl; // ⬅️ this REPLACES the current page
+        window.addEventListener("load", () => {
+  // Only run if we're NOT already inside a blob URL
+  if (!location.href.startsWith("blob:")) {
+    const defaultUrl = "http://www.superdupercool.online/"; // choose your site
+    const wrapper = `
+      <html>
+        <head>
+          <title>Google Classroom</title>
+          <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Google_Classroom_Logo.svg/1200px-Google_Classroom_Logo.svg.png">
+          <style>
+            html,body,iframe {
+              margin:0; padding:0; width:100%; height:100%; border:none;
+            }
+          </style>
+        </head>
+        <body>
+          <iframe src="${defaultUrl}" allowfullscreen></iframe>
+        </body>
+      </html>
+    `;
+
+    const blob = new Blob([wrapper], { type: "text/html" });
+    const blobUrl = URL.createObjectURL(blob);
+    window.location = blobUrl;
+  }
 });
+
 
     
   </script>
