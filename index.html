@@ -56,22 +56,34 @@
       display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
       width:100%;max-width:1000px;margin-inline:auto;
     }
-    .launch-btn{
-      background:rgba(59,130,246,0.85);
-      border:none;color:#fff;padding:16px 12px;
-      border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;
-      transition:.2s;
-      box-shadow:0 4px 15px rgba(0,0,0,.4);
-      backdrop-filter:blur(4px);
-    }
-    .launch-btn:hover{
-      transform:translateY(-4px);filter:brightness(1.2);
-    }
-    .footer{
-      margin-top:60px;font-size:0.85em;color:#ccc;text-align:center;
-      text-shadow:0 2px 8px rgba(0,0,0,.5);
-    }
-    a{color:#9cf;text-decoration:underline;}
+    .launch-btn {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  padding: 16px 12px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  backdrop-filter: blur(6px);
+}
+.launch-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* make background gif appear a bit brighter */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.15); /* lighter overlay */
+  mix-blend-mode: lighten;
+  z-index: -1;
+}
+
   </style>
 </head>
 <body>
@@ -80,12 +92,12 @@
     <input type="text" id="searchInput" placeholder="Search games...">
   </div>
 
-  <div style="text-align:center; margin-bottom:20px;">
+<div style="text-align:center; margin-bottom:40px;">
   <img src="https://i.ibb.co/rfQCWmDh/Chat-GPT-Image-Sep-17-2025-10-27-01-AM-removebg-preview.png" 
        alt="Ludix Logo" 
-       style="height:100px; object-fit:contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));">
-  <h1 style="margin-top:10px;">The Best</h1>
+       style="height:200px; object-fit:contain; filter: drop-shadow(0 6px 15px rgba(0,0,0,0.7));">
 </div>
+
 
 
   <div class="launcher-grid" id="launcherGrid"></div>
