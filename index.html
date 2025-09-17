@@ -8,8 +8,17 @@
   <style>
     *{box-sizing:border-box;font-family:'Outfit',sans-serif;}
     body{
-      margin:0;background:#0d0f13;color:#f4f4f4;
-      display:flex;justify-content:center;min-height:100vh;padding:60px 20px;
+      margin:0;
+      color:#fff;
+      min-height:100vh;
+      background:url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjZvd2wyb3h4b210dGo4NHhzdGRrNWlicmpyeXFiZGc1Y2xkM3N2aSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/BHNfhgU63qrks/giphy.gif') center/cover no-repeat fixed;
+      padding:80px 30px;
+    }
+    body::before {
+      content:"";
+      position:fixed;inset:0;
+      background:rgba(0,0,0,0.5); /* darken overlay for contrast */
+      z-index:-1;
     }
     .topbar{
       position:fixed;top:20px;left:20px;display:flex;gap:10px;align-items:center;z-index:100;
@@ -21,39 +30,48 @@
     #searchButton{
       background:none;border:none;color:#fff;font-size:22px;cursor:pointer;
     }
-    .container{
-      background:#15181f;border-radius:20px;padding:50px 40px;width:100%;max-width:900px;
-      box-shadow:0 10px 30px rgba(0,0,0,.4);
-      display:flex;flex-direction:column;align-items:center;
-    }
     h1{
-      margin:5px 0;font-weight:700;font-size:28px;letter-spacing:.5px;
+      text-align:center;
+      font-weight:700;
+      font-size:40px;
+      letter-spacing:1px;
+      margin:0 0 30px;
+      text-shadow:0 4px 15px rgba(0,0,0,.5);
     }
     .section-title{
-      margin-top:35px;margin-bottom:10px;font-size:20px;font-weight:600;text-transform:uppercase;color:#aaa;
+      text-align:center;
+      margin-top:50px;margin-bottom:15px;
+      font-size:22px;font-weight:600;text-transform:uppercase;
+      color:#ddd;text-shadow:0 2px 10px rgba(0,0,0,.6);
     }
     .update-log{
-      background:#1c1f27;padding:20px;border-radius:12px;margin:10px 0;
-      text-align:left;width:100%;color:#ccc;line-height:1.5;font-size:15px;
+      max-width:800px;margin:0 auto 40px;
+      background:rgba(0,0,0,0.4);
+      padding:20px;border-radius:12px;
+      color:#f0f0f0;line-height:1.5;font-size:15px;
+      box-shadow:0 5px 25px rgba(0,0,0,.3);
     }
     .launcher-grid{
-      margin-top:35px;
+      margin-top:30px;
       display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-      width:100%;
+      width:100%;max-width:1000px;margin-inline:auto;
     }
     .launch-btn{
-      background:#3b82f6;border:none;color:#fff;padding:16px 12px;
+      background:rgba(59,130,246,0.85);
+      border:none;color:#fff;padding:16px 12px;
       border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;
       transition:.2s;
-      box-shadow:0 4px 15px rgba(0,0,0,.2);
+      box-shadow:0 4px 15px rgba(0,0,0,.4);
+      backdrop-filter:blur(4px);
     }
     .launch-btn:hover{
       transform:translateY(-4px);filter:brightness(1.2);
     }
     .footer{
-      margin-top:40px;font-size:0.85em;color:#777;text-align:center;
+      margin-top:60px;font-size:0.85em;color:#ccc;text-align:center;
+      text-shadow:0 2px 8px rgba(0,0,0,.5);
     }
-    a{color:#6ea8ff;text-decoration:underline;}
+    a{color:#9cf;text-decoration:underline;}
   </style>
 </head>
 <body>
@@ -62,23 +80,24 @@
     <input type="text" id="searchInput" placeholder="Search games...">
   </div>
 
-  <div class="container">
-    <h1>A Site</h1>
-    <h1>WE'RE BACK</h1>
-    <div class="section-title">Update Log v2.0.2</div>
-    <div class="update-log">
-      <ul>
-        <li>Added a better proxy (Parker)</li>
-      </ul>
-    </div>
+  <h1>A Site</h1>
+  <h1>WE'RE BACK</h1>
 
-    <div class="section-title">Suggestions</div>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOHgllemZvNHiWS6_LZdOZUL10CVw6OCpTJArUvCAcyEyXtA/viewform?usp=header" target="_blank">Submit here</a>
-
-    <div class="launcher-grid" id="launcherGrid"></div>
-
-    <div class="footer">neh neh neh</div>
+  <div class="section-title">Update Log v2.0.2</div>
+  <div class="update-log">
+    <ul>
+      <li>Added a better proxy (Parker)</li>
+    </ul>
   </div>
+
+  <div class="section-title">Suggestions</div>
+  <div style="text-align:center;margin-bottom:40px;">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOHgllemZvNHiWS6_LZdOZUL10CVw6OCpTJArUvCAcyEyXtA/viewform?usp=header" target="_blank">Submit here</a>
+  </div>
+
+  <div class="launcher-grid" id="launcherGrid"></div>
+
+  <div class="footer">neh neh neh</div>
 
 <script>
 const websites = [
@@ -125,7 +144,7 @@ const websites = [
 ];
 
 const grid = document.getElementById("launcherGrid");
-function renderButtons(list) {
+function renderButtons(list){
   grid.innerHTML="";
   list.forEach(site=>{
     const btn=document.createElement("button");
@@ -148,7 +167,6 @@ function createWindow(url){
   window.open(blobUrl,"_blank");
 }
 
-// search filter
 const searchBtn=document.getElementById("searchButton");
 const searchInput=document.getElementById("searchInput");
 searchBtn.onclick=()=>{
@@ -160,7 +178,6 @@ searchInput.addEventListener("input",()=>{
   renderButtons(websites.filter(w=>w.name.toLowerCase().includes(q)));
 });
 
-// auto blob open on first visit
 window.addEventListener("load", () => {
   if (location.origin.includes("superdupercool.online")) {
     const defaultUrl = "http://www.superdupercool.online/";
