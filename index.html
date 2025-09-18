@@ -858,38 +858,7 @@ if (style === "prettifun") {
     });
 
 
-       window.addEventListener("load", () => {
-  // Only run if we're on your real site, not inside a blob
-  if (location.origin.includes("superdupercool.online")) {
-    const defaultUrl = "http://www.superdupercool.online/";
-
-    const html = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Google Classroom</title>
-          <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Google_Classroom_Logo.svg/1200px-Google_Classroom_Logo.svg.png">
-          <style>
-            html,body,iframe {
-              margin:0; padding:0; width:100%; height:100%; border:none;
-            }
-          </style>
-        </head>
-        <body>
-          <iframe src="${defaultUrl}" allowfullscreen></iframe>
-        </body>
-      </html>
-    `;
-
-    const blob = new Blob([html], { type: "text/html" });
-    const blobUrl = URL.createObjectURL(blob);
-    window.location.replace(blobUrl); // replace so no back loop
-  }
-});
-
-
-
-    
+      
   </script>
 </body>
 </html>
